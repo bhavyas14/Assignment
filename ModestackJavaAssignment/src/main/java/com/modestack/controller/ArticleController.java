@@ -58,20 +58,41 @@ public class ArticleController {
 
 
   	
+	/*
+	 * @RequestMapping(value = "articles", method = RequestMethod.GET, produces =
+	 * MediaType.APPLICATION_JSON_VALUE) public ResponseEntity<ArticleResponse>
+	 * getArticles(@RequestParam("start") int start,
+	 * 
+	 * @RequestParam("size") int size) { ArticleResponse articleResponse = new
+	 * ArticleResponse(); response = new Response(); Body body = new Body(); message
+	 * = new Message(); list = new ArrayList<Message>(); List<Article> data = null;
+	 * 
+	 * if(start >=0 && size >=0) { System.out.println("Inside if"); data =
+	 * articleService.getArticles(start,size); } if(data == null) {
+	 * response.setStatusCode(409); message.setMessage("No article created");
+	 * list.add(message); response.setBody(list); //return new
+	 * ResponseEntity<Response>(response,HttpStatus.CONFLICT); } body.setData(data);
+	 * articleResponse.setStatusCode(GET_CODE); articleResponse.setBody(body);
+	 * 
+	 * 
+	 * return new ResponseEntity<ArticleResponse>(articleResponse, HttpStatus.OK); }
+	 */
+
   	@RequestMapping(value = "articles", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE) 
-	public ResponseEntity<ArticleResponse> getArticles(@RequestParam("start") int start,
-			@RequestParam("size") int size) { 
+	public ResponseEntity<ArticleResponse> getPaginatedArticles(@RequestParam("page") int page) { 
 	ArticleResponse articleResponse = new ArticleResponse();
 	response = new Response();
 	Body body = new Body();
 	message = new Message();
 	list = new ArrayList<Message>();
 	List<Article> data = null;
-
-	if(start >=0 && size >=0) {
-		System.out.println("Inside if");
-	data = articleService.getArticles(start,size); 
-	}
+	
+	int total=5;    
+    if(page==1){}    
+    else{    
+    	page=(page-1)*total+1;    
+    }
+	data = articleService.getPaginatedArticles(page, total); 
 	if(data == null) {
 		response.setStatusCode(409);
 		message.setMessage("No article created");
@@ -84,9 +105,8 @@ public class ArticleController {
 	articleResponse.setBody(body);
 
 
-	return new ResponseEntity<ArticleResponse>(articleResponse, HttpStatus.OK); }
-
-
+	return new ResponseEntity<ArticleResponse>(articleResponse, HttpStatus.OK); 
+	}
 
 
 

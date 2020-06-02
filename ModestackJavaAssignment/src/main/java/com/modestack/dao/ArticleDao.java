@@ -9,7 +9,9 @@ public interface ArticleDao {
 	public int createArticle(Article article);
 	
 	
-	List<Article> getArticles(int start,int size);
+	//List<Article> getArticles(int start,int size);
+	
+	List<Article> getPaginatedArticles(int page,int size);
 	
 
 }

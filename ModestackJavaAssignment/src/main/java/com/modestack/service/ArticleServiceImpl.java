@@ -27,9 +27,17 @@ public class ArticleServiceImpl implements ArticleService{
 	
 
 
+	/*
+	 * @Override public List<Article> getArticles(int start, int size) {
+	 * List<Article> articles = articleDao.getArticles(start,size); return articles;
+	 * }
+	 */
+
+
+
 	@Override
-	public List<Article> getArticles(int start, int size) {
-		List<Article> articles = articleDao.getArticles(start,size);
+	public List<Article> getPaginatedArticles(int page, int size) {
+		List<Article> articles = articleDao.getPaginatedArticles(page, size);
 		return articles;
 	}
 
